@@ -1,23 +1,28 @@
-# SentimentAnalysisPyTorchSpark
+`# SentimentAnalysisPyTorchSpark  ## Download Data  To download the dataset run:  
+```bash kaggle datasets download -d kazanova/sentiment140`
 
-download data:
-kaggle datasets download -d kazanova/sentiment140 
+About the Dataset
+-----------------
 
-About Dataset (https://www.kaggle.com/datasets/kazanova/sentiment140)
-Context
-This is the sentiment140 dataset. It contains 1,600,000 tweets extracted using the twitter api . The tweets have been annotated (0 = negative, 4 = positive) and they can be used to detect sentiment .
+[Sentiment140 Dataset](https://www.kaggle.com/datasets/kazanova/sentiment140)
 
-Content
-It contains the following 6 fields:
+### Context
 
-target: the polarity of the tweet (0 = negative, 2 = neutral, 4 = positive)
+This dataset contains 1,600,000 tweets extracted using the Twitter API. The tweets are annotated as follows:
 
-ids: The id of the tweet ( 2087)
+*   **0** = Negative
+*   **4** = Positive
 
-date: the date of the tweet (Sat May 16 23:58:44 UTC 2009)
+This dataset can be used for sentiment analysis.
 
-flag: The query (lyx). If there is no query, then this value is NO_QUERY.
+### Content
 
-user: the user that tweeted (robotickilldozr)
+The dataset contains the following fields:
 
-text: the text of the tweet (Lyx is cool)
+*   **target**: The polarity of the tweet (0 = negative, 2 = neutral, 4 = positive)
+*   **ids**: The ID of the tweet (e.g., 2087)
+*   **date**: The date of the tweet (e.g., Sat May 16 23:58:44 UTC 2009)
+*   **flag**: The query (e.g., lyx). If there is no query, this value is NO\_QUERY.
+*   **user**: The user who tweeted (e.g., robotickilldozr)
+*   **text**: The text of the tweet (e.g., Lyx is cool)
+
