@@ -1,5 +1,7 @@
 import torch
 from transformers import BertTokenizer, BertForSequenceClassification
+import warnings
+
 
 # device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 # model.to(device)
@@ -13,7 +15,12 @@ model = BertForSequenceClassification.from_pretrained(model_name)
 # Function to preprocess input and make predictions
 def predict_sentiment(text):
     # Tokenize and encode the input text
-    inputs = tokenizer(text, return_tensors="pt", truncation=True, padding=True)
+    inputs = tokenizer(text, return_tensors="pt", truncation=True, padding=True, clean_up_tokenization_spaces=True)
+    
+    # Suppress specific warnings (optional)
+    with warnings.catch_warnings():
+        warnings.simplefilter("ignore", FutureWarning)
+        warnings.simplefilter("ignore", UserWarning)
     
     # Make prediction
     with torch.no_grad():
