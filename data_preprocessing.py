@@ -25,6 +25,11 @@ preprocess_udf = udf(preprocess_text, StringType())
 
 # Function to preprocess and load data
 def load_and_preprocess_data(spark, file_path):
-    df = spark.read.option("header", "true").schema(schema).csv(file_path)
+    df = spark.read.option("header", "false").schema(schema).csv(file_path)
     df = df.withColumn("cleaned_text", preprocess_udf(col("text")))
+    df.show()
+    print(df.columns)
     return df
+
+
+
