@@ -9,7 +9,7 @@ spark = SparkSession.builder \
         .appName("Sentiment Analysis") \
         .getOrCreate()
 
-file_path = "C:/Users/aidag/Documents/PythonProj/SentimentAnalysisPyTorchSpark/SentimentAnalysisPyTorchSpark/sentiment140/training.1600000.processed.noemoticon.csv"
+file_path = "./sentiment140/training.1600000.processed.noemoticon.csv"
 
 # Define schema
 schema = "target INT, ids STRING, date STRING, flag STRING, user STRING, text STRING"
@@ -37,14 +37,22 @@ df_with_step.groupBy("step").count().show(10)
 # Get distinct step values
 steps = df_with_step.select("step").distinct().collect()
 
-for step in steps[:]:
-    print(step)
-    print(step[0])
-    print(df_with_step["step"])
-    _df = df_with_step.filter(df_with_step["step"] == step[0])
-    _df.show(10)
+# for step in steps[:]:
+#     print(step)
+#     print(step[0])
+#     print(df_with_step["step"])
+#     _df = df_with_step.filter(df_with_step["step"] == step[0])
+#     _df.show(10)
 
 
-    print("start writing")
-    _df.coalesce(1).write.mode("append").option("header","true").csv("data/steps")
-    print("Done writing")
+#     print("start writing")
+#     _df.coalesce(1).write.mode("append").option("header","true").csv("data/steps")
+#     print("Done writing")
+
+part = spark.read.csv("data/steps/part-00000-017f1107-fc07-470f-9703-f59008832742-c000.csv", header=True, inferSchema=True)
+part.groupBy("step").count().show()
+
+dataSchema = part.schema
+print(dataSchema)
+
+streaming = spark.readStream.schema(dataSchema).option("maxFilesPerTrigger",1).csv("data/steps")
